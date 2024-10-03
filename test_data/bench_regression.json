@@ -1,0 +1,3592 @@
+{
+    "total_time": {
+      "secs": 0,
+      "nanos": 409349250
+    },
+    "system_specs": {
+      "cpus": [
+        {
+          "name": "1",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "2",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "3",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "4",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "5",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "6",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "7",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "8",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "9",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        },
+        {
+          "name": "10",
+          "vendor_id": "Apple",
+          "brand": "Apple M2 Pro",
+          "frequency": 3504
+        }
+      ],
+      "physical_core_count": 10,
+      "total_memory": 17179869184,
+      "free_memory": 511885312,
+      "available_memory": 5299519488,
+      "used_memory": 10289594368,
+      "total_swap": 0,
+      "free_swap": 0,
+      "used_swap": 0,
+      "uptime": 3341,
+      "boot_time": 1723728687,
+      "load_average": {
+        "one": 4.53271484375,
+        "five": 2.23828125,
+        "fifteen": 1.77978515625
+      },
+      "name": "Darwin",
+      "kernel_version": "23.6.0",
+      "os_version": "14.6.1",
+      "long_os_version": "MacOS 14.6.1 ",
+      "distribution_id": "macos",
+      "host_name": "Georgioss-Mac-mini.local"
+    },
+    "benchmarks": [
+      {
+        "name": "abi_impl_methods_callable",
+        "path": "/Users/georgiosdelkos/Documents/GitHub/ourovoros.io/Fuel/sway/test/src/sdk-harness/test_projects/abi_impl_methods_callable",
+        "start_time": {
+          "secs": 0,
+          "nanos": 13132083
+        },
+        "end_time": {
+          "secs": 0,
+          "nanos": 4234702088
+        },
+        "phases": [
+          {
+            "name": "core compile to ast",
+            "start_time": {
+              "secs": 0,
+              "nanos": 112164458
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 401148250
+            }
+          },
+          {
+            "name": "core parse the program to a concrete syntax tree (CST)",
+            "start_time": {
+              "secs": 0,
+              "nanos": 112606542
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 140765542
+            }
+          },
+          {
+            "name": "core parse the concrete syntax tree (CST) to a typed AST",
+            "start_time": {
+              "secs": 0,
+              "nanos": 140767708
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 399516458
+            }
+          },
+          {
+            "name": "core compile ast to asm",
+            "start_time": {
+              "secs": 0,
+              "nanos": 401150208
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 402178500
+            }
+          },
+          {
+            "name": "core generate JSON ABI program",
+            "start_time": {
+              "secs": 0,
+              "nanos": 402179750
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 402182625
+            }
+          },
+          {
+            "name": "core compile asm to bytecode",
+            "start_time": {
+              "secs": 0,
+              "nanos": 402183667
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 402357875
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable compile to ast",
+            "start_time": {
+              "secs": 0,
+              "nanos": 404112083
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 405579375
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable parse the program to a concrete syntax tree (CST)",
+            "start_time": {
+              "secs": 0,
+              "nanos": 404113417
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 404222000
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable parse the concrete syntax tree (CST) to a typed AST",
+            "start_time": {
+              "secs": 0,
+              "nanos": 404223042
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 405570875
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable compile ast to asm",
+            "start_time": {
+              "secs": 0,
+              "nanos": 405587625
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 409789833
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable generate JSON ABI program",
+            "start_time": {
+              "secs": 0,
+              "nanos": 409791208
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 409792375
+            }
+          },
+          {
+            "name": "abi_impl_methods_callable compile asm to bytecode",
+            "start_time": {
+              "secs": 0,
+              "nanos": 409793667
+            },
+            "end_time": {
+              "secs": 0,
+              "nanos": 410000375
+            }
+          }
+        ],
+        "frames": [
+          {
+            "timestamp": {
+              "secs": 0,
+              "nanos": 14430250
+            },
+            "cpu_usage": 7.0,
+            "memory_usage": 494000,
+            "virtual_memory_usage": 419934579600,
+            "disk_total_written_bytes": 0,
+            "disk_written_bytes": 0,
+            "disk_total_read_bytes": 0,
+            "disk_read_bytes": 0
+          },
+          {
+            "timestamp": {
+              "secs": 0,
+              "nanos": 119436667
+            },
+            "cpu_usage": 6.35,
+            "memory_usage": 135989991,
+            "virtual_memory_usage": 420792988980,
+            "disk_total_written_bytes": 0,
+            "disk_written_bytes": 0,
+            "disk_total_read_bytes": 11214848,
+            "disk_read_bytes": 11214848
+          },
+          {
+            "timestamp": {
+              "secs": 0,
+              "nanos": 224447417
+            },
+            "cpu_usage": 6.836829,
+            "memory_usage": 58490999,
+            "virtual_memory_usage": 428951294100,
+            "disk_total_written_bytes": 0,
+            "disk_written_bytes": 0,
+            "disk_total_read_bytes": 13094912,
+            "disk_read_bytes": 1880064
+          },
+          {
+            "timestamp": {
+              "secs": 0,
+              "nanos": 329455458
+            },
+            "cpu_usage": 15.0302224,
+            "memory_usage": 77430799,
+            "virtual_memory_usage": 499100191990,
+            "disk_total_written_bytes": 0,
+            "disk_written_bytes": 0,
+            "disk_total_read_bytes": 13094912,
+            "disk_read_bytes": 0
+          }
+        ],
+        "asm_information": {
+          "bytecode_size": 31840,
+          "data_section": {
+            "size": 10,
+            "used": 5,
+            "value_pairs": [
+              {
+                "name": null,
+                "padding": {
+                  "Right": {
+                    "target_size": 16
+                  }
+                },
+                "value": {
+                  "ByteArray": [
+                    105,
+                    110,
+                    116,
+                    101,
+                    114,
+                    102,
+                    97,
+                    99,
+                    101,
+                    95,
+                    109,
+                    101,
+                    116,
+                    104,
+                    111,
+                    100
+                  ]
+                }
+              },
+              {
+                "name": null,
+                "padding": {
+                  "Right": {
+                    "target_size": 11
+                  }
+                },
+                "value": {
+                  "ByteArray": [
+                    105,
+                    109,
+                    112,
+                    108,
+                    95,
+                    109,
+                    101,
+                    116,
+                    104,
+                    111,
+                    100
+                  ]
+                }
+              },
+              {
+                "name": null,
+                "padding": {
+                  "Right": {
+                    "target_size": 8
+                  }
+                },
+                "value": {
+                  "Word": 1364
+                }
+              },
+              {
+                "name": null,
+                "padding": {
+                  "Right": {
+                    "target_size": 8
+                  }
+                },
+                "value": {
+                  "Word": 1232
+                }
+              }
+            ]
+          },
+          "entries": [
+            {
+              "fn_name": "__entry",
+              "imm": 7,
+              "selector": null
+            }
+          ],
+          "program_section": [
+            {
+              "MOVE": [
+                240,
+                48,
+                0
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                2
+              ]
+            },
+            null,
+            null,
+            {
+              "LW": [
+                255,
+                192,
+                1
+              ]
+            },
+            {
+              "ADD": [
+                255,
+                255,
+                0
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "CFEI": [
+                0,
+                3,
+                40
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                74
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                1
+              ]
+            },
+            {
+              "MOVE": [
+                64,
+                96,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                92
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                92
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                1
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MUL": [
+                65,
+                36,
+                0
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                20,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                94
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                94
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                0,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                1,
+                5
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                96
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                96
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                176,
+                32
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                4
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                208
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                112
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                73
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                64,
+                96,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                93
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                93
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MUL": [
+                69,
+                36,
+                64
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                4,
+                64
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                95
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                95
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                0,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                234
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                97
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                97
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                176,
+                96
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                12
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                216
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                168
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                168
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                85
+              ]
+            },
+            {
+              "LW": [
+                69,
+                16,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                100
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                85
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "MUL": [
+                72,
+                20,
+                128
+              ]
+            },
+            {
+              "ADD": [
+                69,
+                20,
+                128
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                85
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                100
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                91
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                216
+              ]
+            },
+            {
+              "LW": [
+                75,
+                176,
+                91
+              ]
+            },
+            {
+              "ADDI": [
+                79,
+                176,
+                56
+              ]
+            },
+            {
+              "MOVI": [
+                80,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                77,
+                5,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                65,
+                48,
+                8
+              ]
+            },
+            {
+              "MOVI": [
+                80,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                21,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                179,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                52,
+                64
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                85
+              ]
+            },
+            {
+              "MUL": [
+                68,
+                20,
+                128
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                4,
+                64
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                85
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                179,
+                16
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                224
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                200
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                200
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                112
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                16,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                199
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                216
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                40
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                5
+              ]
+            },
+            {
+              "ADDI": [
+                65,
+                32,
+                8
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                240
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                36,
+                64
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "LW": [
+                67,
+                240,
+                4
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                0,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                178,
+                120
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                120
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                16
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                2
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                16
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                3
+              ]
+            },
+            {
+              "ADDI": [
+                79,
+                176,
+                168
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                77,
+                36,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                177,
+                144
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                160
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                52,
+                64
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                32,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                229,
+                0,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                182
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "JNZF": [
+                64,
+                0,
+                1
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                9
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                1,
+                34
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                136
+              ]
+            },
+            {
+              "SB": [
+                69,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "RETD": [
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "LW": [
+                67,
+                240,
+                5
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                0,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                120
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                248
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                31
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                11
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                32
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                32
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                36,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                177,
+                176
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                192
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                192
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                32,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                229,
+                16,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                148
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "JNZF": [
+                64,
+                0,
+                1
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                104
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                1,
+                9
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                82
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                144
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                4,
+                0
+              ]
+            },
+            {
+              "ALOC": [
+                68,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                68,
+                112,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                128
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                4,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                17
+              ]
+            },
+            {
+              "SW": [
+                236,
+                0,
+                18
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                176,
+                184
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                36,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                178,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                48
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                36,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                72
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "LW": [
+                83,
+                176,
+                9
+              ]
+            },
+            {
+              "LW": [
+                79,
+                176,
+                10
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                11
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "ADD": [
+                73,
+                20,
+                128
+              ]
+            },
+            {
+              "GT": [
+                73,
+                36,
+                192
+              ]
+            },
+            {
+              "JNZF": [
+                72,
+                0,
+                1
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                5
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                2
+              ]
+            },
+            {
+              "MUL": [
+                77,
+                52,
+                128
+              ]
+            },
+            {
+              "ALOC": [
+                76,
+                0,
+                0
+              ]
+            },
+            {
+              "MCP": [
+                29,
+                68,
+                64
+              ]
+            },
+            {
+              "MOVE": [
+                80,
+                112,
+                0
+              ]
+            },
+            {
+              "ADD": [
+                73,
+                68,
+                64
+              ]
+            },
+            {
+              "MOVI": [
+                84,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                5,
+                64
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                8
+              ]
+            },
+            {
+              "ADD": [
+                65,
+                20,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                176,
+                208
+              ]
+            },
+            {
+              "SW": [
+                237,
+                64,
+                26
+              ]
+            },
+            {
+              "SW": [
+                237,
+                48,
+                27
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                28
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                177,
+                8
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                40
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                176
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                176
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                72
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                176,
+                104
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                24
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                13
+              ]
+            },
+            {
+              "ADDI": [
+                65,
+                0,
+                16
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                232
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                29
+              ]
+            },
+            {
+              "ADDI": [
+                69,
+                32,
+                8
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                64
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                36,
+                64
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                80
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                152
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                20,
+                128
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                178,
+                152
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                177,
+                128
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                128
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                16,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                34
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                152
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                177,
+                96
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                178,
+                96
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                36,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                152
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                20,
+                192
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                20
+              ]
+            },
+            {
+              "DIV": [
+                69,
+                16,
+                64
+              ]
+            },
+            {
+              "RETD": [
+                65,
+                16,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                64,
+                0,
+                123
+              ]
+            },
+            {
+              "RVRT": [
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                7
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                160,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                224,
+                0
+              ]
+            },
+            {
+              "JNZF": [
+                0,
+                0,
+                7
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                8
+              ]
+            },
+            {
+              "EQ": [
+                73,
+                32,
+                64
+              ]
+            },
+            {
+              "JNZF": [
+                72,
+                0,
+                2
+              ]
+            },
+            {
+              "LW": [
+                65,
+                0,
+                0
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "LB": [
+                65,
+                0,
+                0
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                16,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                7
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "CFEI": [
+                0,
+                0,
+                48
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                160,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                224,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                4,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                176,
+                32
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                65,
+                36,
+                192
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                237,
+                4,
+                128
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                4
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                0,
+                0
+              ]
+            },
+            {
+              "CFSI": [
+                0,
+                0,
+                48
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                16,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                63
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "CFEI": [
+                0,
+                0,
+                104
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                160,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                144,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                75,
+                224,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                237,
+                4,
+                192
+              ]
+            },
+            {
+              "MOVE": [
+                235,
+                176,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                54
+              ]
+            },
+            {
+              "MOVE": [
+                79,
+                208,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                83,
+                176,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                84,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                81,
+                21,
+                64
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                64,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                45
+              ]
+            },
+            {
+              "MOVE": [
+                83,
+                208,
+                0
+              ]
+            },
+            {
+              "EQ": [
+                77,
+                53,
+                0
+              ]
+            },
+            {
+              "EQ": [
+                77,
+                48,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                80,
+                0,
+                0
+              ]
+            },
+            {
+              "JNZF": [
+                76,
+                0,
+                34
+              ]
+            },
+            {
+              "ADDI": [
+                79,
+                176,
+                48
+              ]
+            },
+            {
+              "MOVI": [
+                80,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                77,
+                5,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                48,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                56
+              ]
+            },
+            {
+              "MOVE": [
+                79,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                48,
+                12
+              ]
+            },
+            {
+              "ADDI": [
+                79,
+                176,
+                64
+              ]
+            },
+            {
+              "MOVI": [
+                80,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                77,
+                21,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                48,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                46
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                16,
+                11
+              ]
+            },
+            {
+              "ADDI": [
+                71,
+                176,
+                32
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                69,
+                4,
+                192
+              ]
+            },
+            {
+              "MOVE": [
+                233,
+                16,
+                0
+              ]
+            },
+            {
+              "SUB": [
+                248,
+                51,
+                0
+              ]
+            },
+            {
+              "SRLI": [
+                251,
+                224,
+                2
+              ]
+            },
+            {
+              "ADDI": [
+                251,
+                224,
+                4
+              ]
+            },
+            {
+              "JMPF": [
+                0,
+                0,
+                12
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                208,
+                0
+              ]
+            },
+            {
+              "SW": [
+                237,
+                0,
+                10
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                12
+              ]
+            },
+            {
+              "LW": [
+                71,
+                176,
+                11
+              ]
+            },
+            {
+              "LW": [
+                79,
+                176,
+                10
+              ]
+            },
+            {
+              "MEQ": [
+                81,
+                4,
+                83
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                64,
+                0
+              ]
+            },
+            {
+              "CFSI": [
+                0,
+                0,
+                104
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                32,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                63
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "CFEI": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                160,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                224,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                237,
+                4,
+                128
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                176,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                4,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                176,
+                16
+              ]
+            },
+            {
+              "ADDI": [
+                65,
+                0,
+                8
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                32
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                4,
+                192
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                3
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                0,
+                0
+              ]
+            },
+            {
+              "CFSI": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                16,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "CFEI": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                160,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                71,
+                224,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                72,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                237,
+                4,
+                128
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                176,
+                0
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                16
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                16
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                4,
+                192
+              ]
+            },
+            {
+              "ADDI": [
+                67,
+                176,
+                16
+              ]
+            },
+            {
+              "ADDI": [
+                75,
+                176,
+                32
+              ]
+            },
+            {
+              "MOVI": [
+                76,
+                0,
+                8
+              ]
+            },
+            {
+              "MCP": [
+                73,
+                4,
+                192
+              ]
+            },
+            {
+              "LW": [
+                67,
+                176,
+                2
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                0,
+                0
+              ]
+            },
+            {
+              "CFSI": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                16,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                15
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                224,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                244,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                0,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "PSHL": [
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "PSHH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                236,
+                80,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                67,
+                224,
+                0
+              ]
+            },
+            {
+              "MOVI": [
+                68,
+                0,
+                42
+              ]
+            },
+            {
+              "MOVE": [
+                245,
+                16,
+                0
+              ]
+            },
+            {
+              "MOVE": [
+                249,
+                0,
+                0
+              ]
+            },
+            {
+              "POPH": [
+                8,
+                0,
+                0
+              ]
+            },
+            {
+              "POPL": [
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "JMP": [
+                248,
+                0,
+                0
+              ]
+            },
+            {
+              "NOOP": [
+                0,
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }

@@ -1,0 +1,115 @@
+name: Run dyno on PR command
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  run-dyno:
+    if: github.event.issue.pull_request != null
+    runs-on: ubuntu-latest
+
+    env:
+      LAMBDA_FUNCTION_NAME: "dyno"
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Check for command
+      id: check_comment
+      run: |
+        if [[ "${{ github.event.comment.body }}" == "dyno run" ]]; then
+          echo "Command issued"
+        else
+          echo "Command not issued"
+          exit 0
+        fi
+
+    - name: Fetch maintainers
+      id: fetch_maintainers
+      run: |
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/collaborators?affiliation=direct" \
+        | jq -r '.[] | select(.permissions.maintain == true) | .login' > maintainers.txt
+
+    - name: Verify comment author
+      id: verify_author
+      run: |
+        author="${{ github.event.comment.user.login }}"
+        owner="${{ github.repository_owner }}"
+        if [[ "$author" == "$owner" ]] || grep -q "$author" maintainers.txt; then
+          echo "Author verified"
+        else
+          echo "Author not verified"
+          exit 1
+        fi
+    
+    - name: Modify sysctl settings
+      run: |
+        echo "kernel.perf_event_paranoid=-1" | sudo tee -a /etc/sysctl.conf
+        echo "kernel.kptr_restrict=0" | sudo tee -a /etc/sysctl.conf
+        sudo sysctl -p /etc/sysctl.conf
+
+    - name: Extract PR number
+      id: extract_pr_number
+      run: |
+        echo "PR_NUMBER=$(echo "${{ github.event.issue.pull_request.url }}" | grep -o '[0-9]*$')" >> $GITHUB_ENV
+
+    - name: Fetch PR reference
+      run: |
+        git fetch origin pull/${{ env.PR_NUMBER }}/head:pr-${{ env.PR_NUMBER }}
+
+    - name: Check out PR branch
+      run: |
+        git checkout pr-${{ env.PR_NUMBER }}
+
+    - name: Extract PR hash
+      id: extract_pr_hash
+      run: |
+        PR_HASH=$(git rev-parse HEAD)
+        echo "PR_HASH=$PR_HASH" >> $GITHUB_ENV
+
+    - name: Build sway
+      run: |
+        cargo build --release --features profile
+        
+    - name: Install dyno tool
+      run: |
+        cd /home/runner/work/sway
+        git clone https://github.com/ourovoros-io/dyno.git
+        cd dyno
+        cargo build --release
+        cp target/release/dyno ../../
+
+    - name: Run dyno tool
+      run: |
+        cd /home/runner/work/
+        ./dyno -t sway/sway/test/src/sdk-harness/test_projects/ -f sway/sway/target/release/forc
+
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+
+    - name: Upload benchmarks to S3
+      run: |
+        cd /home/runner/work/
+        aws s3 sync benchmarks s3://${{ env.S3_BUCKET_NAME }}/benchmarks
+
+    - name: Invoke Lambda function
+      run: |
+        aws lambda invoke \
+          --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+          --payload '{"pr_hash": "${{ env.PR_HASH }}"}' \
+          response.json
+        cat response.json
