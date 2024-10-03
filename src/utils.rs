@@ -236,7 +236,7 @@ pub fn get_forc_version(path: &std::path::Path) -> Result<String> {
 pub fn print_welcome() {
     println!("{}", "=".repeat(100));
     println!(
-        "{}Welcome to the Forc Performance Tool v{}",
+        "{}Welcome to the Fuel Dyno v{}",
         "     ".repeat(5),
         env!("CARGO_PKG_VERSION")
     );

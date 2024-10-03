@@ -1,6 +1,8 @@
-# Dyno Fuel Orchestrator Performance Profiling & Benchmarking
+# Dyno A Fuel Orchestrator for Performance Profiling & Benchmarking
 
-- [Dyno Fuel Orchestrator Performance Profiling \& Benchmarking](#dyno-fuel-orchestrator-performance-profiling--benchmarking)
+![Dyno](./images/dyno.jpg)
+
+- [Dyno A Fuel Orchestrator for Performance Profiling \& Benchmarking](#dyno-a-fuel-orchestrator-for-performance-profiling--benchmarking)
   - [Introduction](#introduction)
   - [Requirements](#requirements)
   - [Installation](#installation)
