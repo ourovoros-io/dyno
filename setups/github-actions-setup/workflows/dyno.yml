@@ -1,19 +1,18 @@
-name: Run dyno on PR command
+name: Run dyno on PR open
 
 on:
-  issue_comment:
-    types: [created]
+  pull_request:
+    types:
+      - opened
 
 jobs:
   run-dyno:
-    if: github.event.issue.pull_request != null
+    if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
 
     env:
-      LAMBDA_FUNCTION_NAME: "dyno"
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TARGET_REPO: ${{ secrets.TARGET_REPO }}
 
     steps:
     - name: Checkout repository
@@ -25,35 +24,6 @@ jobs:
         toolchain: stable
         override: true
 
-    - name: Check for command
-      id: check_comment
-      run: |
-        if [[ "${{ github.event.comment.body }}" == "dyno run" ]]; then
-          echo "Command issued"
-        else
-          echo "Command not issued"
-          exit 0
-        fi
-
-    - name: Fetch maintainers
-      id: fetch_maintainers
-      run: |
-        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-        "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/collaborators?affiliation=direct" \
-        | jq -r '.[] | select(.permissions.maintain == true) | .login' > maintainers.txt
-
-    - name: Verify comment author
-      id: verify_author
-      run: |
-        author="${{ github.event.comment.user.login }}"
-        owner="${{ github.repository_owner }}"
-        if [[ "$author" == "$owner" ]] || grep -q "$author" maintainers.txt; then
-          echo "Author verified"
-        else
-          echo "Author not verified"
-          exit 1
-        fi
-    
     - name: Modify sysctl settings
       run: |
         echo "kernel.perf_event_paranoid=-1" | sudo tee -a /etc/sysctl.conf
@@ -63,7 +33,7 @@ jobs:
     - name: Extract PR number
       id: extract_pr_number
       run: |
-        echo "PR_NUMBER=$(echo "${{ github.event.issue.pull_request.url }}" | grep -o '[0-9]*$')" >> $GITHUB_ENV
+        echo "PR_NUMBER=$(echo "${{ github.event.pull_request.url }}" | grep -o '[0-9]*$')" >> $GITHUB_ENV
 
     - name: Fetch PR reference
       run: |
@@ -73,43 +43,75 @@ jobs:
       run: |
         git checkout pr-${{ env.PR_NUMBER }}
 
+    - name: Build sway
+      run: |
+        cargo build --release --features profile
+        
     - name: Extract PR hash
       id: extract_pr_hash
       run: |
         PR_HASH=$(git rev-parse HEAD)
         echo "PR_HASH=$PR_HASH" >> $GITHUB_ENV
 
-    - name: Build sway
+    - name: Get PR title and URL
+      id: get_pr_details
       run: |
-        cargo build --release --features profile
-        
+        PR_DETAILS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.pull_request.head.repo.name }}/pulls/${{ env.PR_NUMBER }}")
+        PR_TITLE=$(echo "$PR_DETAILS" | jq -r '.title')
+        PR_URL=$(echo "$PR_DETAILS" | jq -r '.html_url')
+        echo "PR_TITLE=$PR_TITLE" >> $GITHUB_ENV
+        echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+
     - name: Install dyno tool
       run: |
-        cd /home/runner/work/sway
+        cd /home/runner/work/
+        mkdir profiler
+        cd profiler
         git clone https://github.com/ourovoros-io/dyno.git
         cd dyno
         cargo build --release
-        cp target/release/dyno ../../
+        cp target/release/dyno /home/runner/work/
 
     - name: Run dyno tool
       run: |
         cd /home/runner/work/
         ./dyno -t sway/sway/test/src/sdk-harness/test_projects/ -f sway/sway/target/release/forc
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
-
-    - name: Upload benchmarks to S3
+    - name: Install Dyno Site
       run: |
         cd /home/runner/work/
-        aws s3 sync benchmarks s3://${{ env.S3_BUCKET_NAME }}/benchmarks
+        git clone https://github.com/ourovoros.io/dynosite.git
+        cd dynosite
+        cargo build --release
 
-    - name: Invoke Lambda function
+    - name: Run Dyno Site
       run: |
-        aws lambda invoke \
-          --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
-          --payload '{"pr_hash": "${{ env.PR_HASH }}"}' \
-          response.json
-        cat response.json
+        cd /home/runner/work/ 
+        ./dynosite/target/release/dynosite -b /home/runner/work/benchmarks -p "${{ env.PR_HASH }}" -t "${{ env.PR_TITLE }}" -l "${{ env.PR_URL }}"
+
+    - name: Clone target repository
+      run: |
+        git clone https://github.com/${{ env.TARGET_REPO }} target-repo
+        cd target-repo
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+
+    - name: Copy generated files
+      run: |
+        cp -r /home/runner/work/benchmarks target-repo/
+        cp -r /home/runner/work/data target-repo/
+        cp /home/runner/work/error.html target-repo/
+        cp /home/runner/work/index.html target-repo/
+
+    - name: Update README
+      run: |
+        cd target-repo
+        echo "[View the generated index.html](./index.html)" > README.md
+
+    - name: Commit and push changes
+      run: |
+        cd target-repo
+        git add .
+        git commit -m "Update benchmarks and data for PR #${{ env.PR_NUMBER }}"
+        git push origin main
