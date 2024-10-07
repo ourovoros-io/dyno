@@ -45,7 +45,7 @@ jobs:
 
     - name: Build sway
       run: |
-        cargo build --release --features profile
+        cargo build --release --features profiler
         
     - name: Extract PR hash
       id: extract_pr_hash
@@ -63,6 +63,19 @@ jobs:
         echo "PR_TITLE=$PR_TITLE" >> $GITHUB_ENV
         echo "PR_URL=$PR_URL" >> $GITHUB_ENV
 
+    - name: Clone target repository
+      run: |
+        git clone https://github.com/${{ env.TARGET_REPO }} target-repo
+        cd target-repo
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+
+    - name: Find latest JSON file
+      id: find_latest_json
+      run: |
+        LATEST_JSON=$(ls -t target-repo/site/data/folder/runs/*.json | head -n 1)
+        echo "LATEST_JSON=$LATEST_JSON" >> $GITHUB_ENV
+
     - name: Install dyno tool
       run: |
         cd /home/runner/work/
@@ -73,6 +86,11 @@ jobs:
         cargo build --release
         cp target/release/dyno /home/runner/work/
 
+    - name: Copy latest JSON to dyno folder
+      run: |
+        mkdir -p /home/runner/work/benchmarks/runs
+        cp ${{ env.LATEST_JSON }} /home/runner/work/benchmarks/runs/
+
     - name: Run dyno tool
       run: |
         cd /home/runner/work/
@@ -81,7 +99,7 @@ jobs:
     - name: Install Dyno Site
       run: |
         cd /home/runner/work/
-        git clone https://github.com/ourovoros.io/dynosite.git
+        git clone https://github.com/ourovoros-io/dynosite.git
         cd dynosite
         cargo build --release
 
@@ -89,13 +107,6 @@ jobs:
       run: |
         cd /home/runner/work/ 
         ./dynosite/target/release/dynosite -b /home/runner/work/benchmarks -p "${{ env.PR_HASH }}" -t "${{ env.PR_TITLE }}" -l "${{ env.PR_URL }}"
-
-    - name: Clone target repository
-      run: |
-        git clone https://github.com/${{ env.TARGET_REPO }} target-repo
-        cd target-repo
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
 
     - name: Copy generated files
       run: |
