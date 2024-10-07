@@ -10,6 +10,7 @@
     - [Target](#target)
     - [Forc Path](#forc-path)
     - [Output Folder](#output-folder)
+    - [Print Output](#print-output)
     - [Flamegraph Support](#flamegraph-support)
     - [Hyperfine Support](#hyperfine-support)
     - [Database Support](#database-support)
@@ -87,6 +88,9 @@ cargo r --release -- -t <target_folder> -f <forc_profile_binary>
 ## Usage
 
 ```bash
+====================================================================================================
+                         Welcome to the Fuel Dyno v0.1.0
+====================================================================================================
 Fuel Orchestrator Performance Profiling & Benchmarking
 
 Usage: dyno [OPTIONS] --target <TARGET> --forc-path <FORC_PATH>
@@ -98,8 +102,10 @@ Options:
           The path to the forc binary compiled with --features profiler
   -o, --output-folder <OUTPUT_FOLDER>
           [default: ./benchmarks]
-      --flamegraph <FLAMEGRAPH>
-          A path to a target file to create a flamegraph for (Optional)
+  -p, --print-output
+          Enable printing output (Optional)
+      --flamegraph
+          Flamegraph support (Optional)
       --hyperfine
           Enable hyperfine analysis (Optional)
       --max-iterations <MAX_ITERATIONS>
@@ -111,6 +117,7 @@ Options:
   -V, --version
           Print version
 ```
+
 ---
 
 ### Target
@@ -136,6 +143,12 @@ Set the output folder for the `benchmarks` data as `json`.
 By default the profiler will store the benchmarks under `./benchmarks`.
 
 The format of the filenames is `forc_version_md5hash_of_forc_date_time.json`.
+
+---
+
+### Print Output
+
+Prints the output of the run in the terminal.
 
 ---
 

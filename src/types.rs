@@ -376,7 +376,7 @@ impl Benchmark {
                 .collapse(reader, writer)
                 .map_err(|e| wrap!(e.into()))?;
 
-                let flamegraph_folder = exec_path
+            let flamegraph_folder = exec_path
                 .strip_suffix(".json")
                 .ok_or_else(|| wrap!("Failed to strip suffix".into()))?;
 
@@ -612,9 +612,11 @@ impl Benchmark {
             #[cfg(target_os = "linux")]
             system.refresh_all();
 
-            if system
-                .refresh_processes_specifics(sysinfo::ProcessesToUpdate::Some(&[pid]), refresh_kind)
-                != 1
+            if system.refresh_processes_specifics(
+                sysinfo::ProcessesToUpdate::Some(&[pid]),
+                true,
+                refresh_kind,
+            ) != 1
             {
                 break;
             }

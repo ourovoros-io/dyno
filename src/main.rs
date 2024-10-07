@@ -13,6 +13,7 @@ mod utils;
 
 use clap::Parser;
 pub use error::Result;
+use prettytable::row;
 
 const BENCHMARKS_RUN_FOLDER: &str = "runs";
 const BENCHMARKS_STATS_FOLDER: &str = "stats";
@@ -63,8 +64,9 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     // Setup the benchmarking environment
     utils::setup_system(options).map_err(|e| wrap!(e))?;
 
-    // Get the program-specific epoch
-    let epoch = std::time::Instant::now();
+    let forc_version = utils::get_forc_version(&options.forc_path).map_err(|e| wrap!(e))?;
+
+    let compiler_hash = utils::compute_md5(&options.forc_path).map_err(|e| wrap!(e))?;
 
     // Get the system specifications
     let system_specs = utils::system_specs().map_err(|e| wrap!(e))?;
@@ -75,14 +77,7 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     // Create a mutable array of new benchmarks to be performed
     let mut current_benchmarks = utils::generate_benchmarks(target_path).map_err(|e| wrap!(e))?;
 
-    // Get the start time of the entire benchmarking process
-    let start_time = std::time::Instant::now();
-
     let benchmarks_datetime = utils::get_date_time();
-
-    let forc_version = utils::get_forc_version(&options.forc_path).map_err(|e| wrap!(e))?;
-
-    let compiler_hash = utils::compute_md5(&options.forc_path).map_err(|e| wrap!(e))?;
 
     let run_path = format!(
         "{}/{}/{}_{}_{}.json",
@@ -92,6 +87,9 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
         compiler_hash,
         benchmarks_datetime
     );
+
+    // Get the program-specific epoch
+    let epoch = std::time::Instant::now();
 
     // Run all of the benchmarks
     for benchmark in &mut current_benchmarks {
@@ -106,7 +104,7 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
 
     // Create a new benchmarks struct
     let benchmarks = types::Benchmarks {
-        total_time: end_time.duration_since(start_time),
+        total_time: end_time.duration_since(epoch),
         system_specs,
         benchmarks: current_benchmarks.clone(),
         forc_version: forc_version.clone(),
@@ -166,6 +164,10 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
         );
 
         utils::store_item(&stats_result, &stats_path).map_err(|e| wrap!(e))?;
+
+        if options.print_output {
+            print_stats(&stats_result);
+        }
     }
 
     if options.database {
@@ -227,4 +229,65 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     }
 
     Ok(())
+}
+
+pub fn print_stats(stats_result: &stats::Collection) {
+    println!("Printing performance regression or improvements");
+    // Create a table
+    let mut table = prettytable::Table::new();
+
+    // Add a row for each metric
+    table.add_row(row!["Metric", "Value Change", "Percentage Change"]);
+    for (path, benchmark) in &stats_result.0 {
+        table.add_row(row!["Path", path]);
+        table.add_row(row![
+            "CPU Usage",
+            benchmark.cpu_usage.0,
+            benchmark.cpu_usage.1
+        ]);
+        table.add_row(row![
+            "Memory Usage",
+            benchmark.memory_usage.0,
+            benchmark.memory_usage.1
+        ]);
+        table.add_row(row![
+            "Virtual Memory Usage",
+            benchmark.virtual_memory_usage.0,
+            benchmark.virtual_memory_usage.1
+        ]);
+        table.add_row(row![
+            "Disk Total Written Bytes",
+            benchmark.disk_total_written_bytes.0,
+            benchmark.disk_total_written_bytes.1
+        ]);
+        table.add_row(row![
+            "Disk Written Bytes",
+            benchmark.disk_written_bytes.0,
+            benchmark.disk_written_bytes.1
+        ]);
+        table.add_row(row![
+            "Disk Total Read Bytes",
+            benchmark.disk_total_read_bytes.0,
+            benchmark.disk_total_read_bytes.1
+        ]);
+        table.add_row(row![
+            "Disk Read Bytes",
+            benchmark.disk_read_bytes.0,
+            benchmark.disk_read_bytes.1
+        ]);
+        table.add_row(row![
+            "Bytecode Size",
+            benchmark.bytecode_size.0,
+            benchmark.bytecode_size.1
+        ]);
+        table.add_row(row![
+            "Data Section Size",
+            benchmark.data_section_size.0,
+            benchmark.data_section_size.1
+        ]);
+        table.add_row(row!["Time", benchmark.time.0, benchmark.time.1]);
+    }
+
+    // Print the table
+    table.printstd();
 }

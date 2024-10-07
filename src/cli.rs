@@ -20,6 +20,10 @@ pub struct Options {
     #[clap(short, long, default_value = "./benchmarks")]
     pub output_folder: PathBuf,
 
+    #[clap[short, long, default_value = "false"]]
+    /// Enable printing output (Optional)
+    pub print_output: bool,
+
     #[clap(long)]
     /// Flamegraph support (Optional)
     pub flamegraph: bool,
