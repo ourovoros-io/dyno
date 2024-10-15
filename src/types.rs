@@ -608,7 +608,7 @@ impl Benchmark {
                 break;
             }
 
-            // Run this only if we are in linux
+            // Remove this when this issue [#1315](https://github.com/GuillaumeGomez/sysinfo/issues/1351) has been resolved
             #[cfg(target_os = "linux")]
             system.refresh_all();
 
