@@ -12,6 +12,7 @@
     - [Output Folder](#output-folder)
     - [Print Output](#print-output)
     - [Flamegraph Support](#flamegraph-support)
+    - [Data Only](#data-only)
     - [Hyperfine Support](#hyperfine-support)
     - [Database Support](#database-support)
   - [CI/CD Mode](#cicd-mode)
@@ -106,6 +107,8 @@ Options:
           Enable printing output (Optional)
       --flamegraph
           Flamegraph support (Optional)
+      --data-only
+          Only data for flamegraph (Optional)
       --hyperfine
           Enable hyperfine analysis (Optional)
       --max-iterations <MAX_ITERATIONS>
@@ -166,6 +169,13 @@ debug = true
 Example output
 
 ![flamegraph](./images/flamegraph.svg)
+
+---
+
+### Data Only
+
+Data only mode disables the creation of svg files from the data collected for flamegraphs creation.
+This allows the output of the tool to be more light in performance/disk usage and leaves the creation of svg in the hands of `dynosite` or any other tool.
 
 ---
 
