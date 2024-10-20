@@ -27,8 +27,6 @@ The tool manages dispatching of `forc` and measures performance frames at a fixe
 
 The tool can optionally use [perf](https://en.wikipedia.org/wiki/Perf_(Linux)) or `sample` (Mac) for stats, [inferno](https://github.com/jonhoo/inferno) for flame graphs and [hyperfine](https://github.com/sharkdp/hyperfine) for additional sanity checks.
 
-TODO: Add some nice pics in here.
-
 ## Requirements
 
 > [!IMPORTANT]
@@ -191,10 +189,12 @@ Enables `hyperfine` feature.
 
 ### Database Support
 
-TODO: Add usage for the database
+[test_with_docker_setup](/test_with_docker_setup.sh)
 
 ---
 
 ## CI/CD Mode
 
-TODO: add CI/CD installation instructions.
+Please follow the instruction in the `DynoSite` README.md.
+
+[DynoSite README.md](https://github.com/ourovoros-io/dynosite/blob/main/README.md)
