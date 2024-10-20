@@ -243,6 +243,162 @@ pub fn print_welcome() {
     println!("{}", "=".repeat(100));
 }
 
+
+use tabled::{Table, Tabled};
+
+#[derive(Tabled)]
+struct MetricRow {
+    metric: &'static str,
+    value_change: String,
+    percentage_change: String,
+}
+
+#[derive(Tabled)]
+struct AsmRow {
+    metric: &'static str,
+    previous: String,
+    current: String,
+}
+
+/// Print the performance regression or improvements.
+/// 
+/// # Arguments
+/// 
+/// * `stats_result` - A reference to a `stats::Collection`.
+/// 
+/// * `previous_benchmarks` - A reference to a vector of `types::Benchmark`.
+/// 
+/// * `current_benchmarks` - A reference to a vector of `types::Benchmark`.
+/// 
+/// # Errors
+/// 
+/// If the function is unable to get the asm information.
+/// 
+pub fn print_stats(
+    stats_result: &crate::stats::Collection,
+    previous_benchmarks: &[crate::types::Benchmark],
+    current_benchmarks: &[crate::types::Benchmark],
+) -> Result<()> {
+    println!("Printing performance regression or improvements");
+
+    // Create a vector to hold the metric rows
+    let mut metric_rows = Vec::new();
+
+    // Add a row for each metric
+    for (path, benchmark) in &stats_result.0 {
+        metric_rows.push(MetricRow {
+            metric: "Path",
+            value_change: path.clone(),
+            percentage_change: String::new(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "CPU Usage",
+            value_change: benchmark.cpu_usage.0.to_string(),
+            percentage_change: benchmark.cpu_usage.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Memory Usage",
+            value_change: benchmark.memory_usage.0.to_string(),
+            percentage_change: benchmark.memory_usage.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Virtual Memory Usage",
+            value_change: benchmark.virtual_memory_usage.0.to_string(),
+            percentage_change: benchmark.virtual_memory_usage.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Disk Total Written Bytes",
+            value_change: benchmark.disk_total_written_bytes.0.to_string(),
+            percentage_change: benchmark.disk_total_written_bytes.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Disk Written Bytes",
+            value_change: benchmark.disk_written_bytes.0.to_string(),
+            percentage_change: benchmark.disk_written_bytes.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Disk Total Read Bytes",
+            value_change: benchmark.disk_total_read_bytes.0.to_string(),
+            percentage_change: benchmark.disk_total_read_bytes.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Disk Read Bytes",
+            value_change: benchmark.disk_read_bytes.0.to_string(),
+            percentage_change: benchmark.disk_read_bytes.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Bytecode Size",
+            value_change: benchmark.bytecode_size.0.to_string(),
+            percentage_change: benchmark.bytecode_size.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Data Section Size",
+            value_change: benchmark.data_section_size.0.to_string(),
+            percentage_change: benchmark.data_section_size.1.to_string(),
+        });
+        metric_rows.push(MetricRow {
+            metric: "Time",
+            value_change: benchmark.time.0.to_string(),
+            percentage_change: benchmark.time.1.to_string(),
+        });
+    }
+
+    // Create a vector to hold the ASM rows
+    let mut asm_rows = Vec::new();
+    asm_rows.push(AsmRow {
+        metric: "Asm Information",
+        previous: "Previous".to_string(),
+        current: "Current".to_string(),
+    });
+
+    let benchmarks = previous_benchmarks.iter().zip(current_benchmarks);
+    for (previous_benchmark, current_benchmark) in benchmarks {
+        asm_rows.push(AsmRow {
+            metric: "Bytecode Size",
+            previous: previous_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for previous bytecode size".into())
+            })?["bytecode_size"]
+                .to_string(),
+            current: current_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for current bytecode size".into())
+            })?["bytecode_size"]
+                .to_string(),
+        });
+        asm_rows.push(AsmRow {
+            metric: "Data Section Size",
+            previous: previous_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for previous data section size".into())
+            })?["data_section"]["size"]
+                .to_string(),
+            current: current_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for current data section size".into())
+            })?["data_section"]["size"]
+                .to_string(),
+        });
+        asm_rows.push(AsmRow {
+            metric: "Data Section Used",
+            previous: previous_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for previous data section used".into())
+            })?["data_section"]["used"]
+                .to_string(),
+            current: current_benchmark.asm_information.as_ref().ok_or_else(|| {
+                wrap!("Failed to get asm information for current data section used".into())
+            })?["data_section"]["used"]
+                .to_string(),
+        });
+    }
+
+    // Create and print the metric table
+    let metric_table = Table::new(metric_rows);
+    println!("{metric_table}");
+
+    // Create and print the ASM table
+    let asm_table = Table::new(asm_rows);
+    println!("{asm_table}");
+    Ok(())
+}
+
+
 #[cfg(test)]
 mod tests {
 

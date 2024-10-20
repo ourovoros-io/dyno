@@ -288,6 +288,7 @@ pub async fn insert_stats(
 ///
 /// If the deserialization of the stats fails.
 ///
+#[allow(dead_code)]
 pub async fn get_latest_stats(
     client: &tokio_postgres::Client,
 ) -> crate::Result<crate::stats::Stats> {

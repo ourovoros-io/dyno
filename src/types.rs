@@ -294,56 +294,61 @@ impl Benchmark {
         // Set the end time of the benchmark
         self.end_time = Some(epoch.elapsed());
 
+        let flamegraph_folder = exec_path
+            .strip_suffix(".json")
+            .ok_or_else(|| wrap!("Failed to strip suffix".into()))?;
+
+        let flamegraph_folder = flamegraph_folder.replace(
+            crate::BENCHMARKS_RUN_FOLDER,
+            crate::BENCHMARKS_FLAMEGRAPH_FOLDER,
+        );
+
+        let flamegraph_folder = std::path::Path::new(&flamegraph_folder);
+
+        if !flamegraph_folder.exists() {
+            // Create the flamegraph folder
+            std::fs::create_dir(flamegraph_folder).map_err(|e| wrap!(e.into()))?;
+        }
+
         #[cfg(target_os = "macos")]
-        if let Some(sample_output) = sample_output {
-            if let Ok(sample_output) = sample_output.join() {
-                if let Some(sample_output) = sample_output {
-                    // Collapse the sample output
-                    let mut collapsed = Vec::new();
-                    let mut folder = Folder::default();
-                    let reader = BufReader::new(&sample_output[..]);
-                    let writer = BufWriter::new(&mut collapsed);
+        if options.data_only {
+            println!("Only data flag set, skipping flamegraph generation. Storing only data");
+            let file_name = format!("{}.sample", self.name);
+            // Create the flamegraph folder
+            let output_file_path = flamegraph_folder.join(file_name);
+            let contents = sample_output.unwrap().join().unwrap().unwrap();
+            std::fs::write(output_file_path, contents).map_err(|e| wrap!(e.into()))?;
+        } else if let Some(sample_output) = sample_output {
+            if let Ok(Some(sample_output)) = sample_output.join() {
+                // Collapse the sample output
+                let mut collapsed = Vec::new();
+                let mut folder = Folder::default();
+                let reader = BufReader::new(&sample_output[..]);
+                let writer = BufWriter::new(&mut collapsed);
 
-                    folder
-                        .collapse(reader, writer)
-                        .map_err(|e| wrap!(e.into()))?;
-
-                    let flamegraph_folder = exec_path
-                        .strip_suffix(".json")
-                        .ok_or_else(|| wrap!("Failed to strip suffix".into()))?;
-
-                    let flamegraph_folder = flamegraph_folder.replace(
-                        crate::BENCHMARKS_RUN_FOLDER,
-                        crate::BENCHMARKS_FLAMEGRAPH_FOLDER,
-                    );
-
-                    let flamegraph_folder = std::path::Path::new(&flamegraph_folder);
-
-                    if !flamegraph_folder.exists() {
-                        // Create the flamegraph folder
-                        std::fs::create_dir(flamegraph_folder).map_err(|e| wrap!(e.into()))?;
-                    }
-
-                    let file_name = format!("{}.svg", self.name,);
-
-                    // Create the flamegraph folder
-                    let output_file_path = flamegraph_folder.join(file_name);
-
-                    let output_file =
-                        std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
-
-                    let mut writer = BufWriter::new(output_file);
-                    let reader = BufReader::new(&collapsed[..]);
-
-                    from_reader(
-                        &mut inferno::flamegraph::Options::default(),
-                        reader,
-                        &mut writer,
-                    )
+                folder
+                    .collapse(reader, writer)
                     .map_err(|e| wrap!(e.into()))?;
 
-                    println!("Flamegraph generated at {}", output_file_path.display());
-                }
+                let file_name = format!("{}.svg", self.name);
+
+                // Create the flamegraph folder
+                let output_file_path = flamegraph_folder.join(file_name);
+
+                let output_file =
+                    std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
+
+                let mut writer = BufWriter::new(output_file);
+                let reader = BufReader::new(&collapsed[..]);
+
+                from_reader(
+                    &mut inferno::flamegraph::Options::default(),
+                    reader,
+                    &mut writer,
+                )
+                .map_err(|e| wrap!(e.into()))?;
+
+                println!("Flamegraph generated at {}", output_file_path.display());
             }
         }
 
@@ -365,52 +370,43 @@ impl Benchmark {
                 }
                 out
             };
+            if !options.only_data {
+                // Collapse the perf script output
+                let mut collapsed = Vec::new();
+                let mut folder = Folder::default();
+                let reader = BufReader::new(&perf_script_output.stdout[..]);
+                let writer = BufWriter::new(&mut collapsed);
 
-            // Collapse the perf script output
-            let mut collapsed = Vec::new();
-            let mut folder = Folder::default();
-            let reader = BufReader::new(&perf_script_output.stdout[..]);
-            let writer = BufWriter::new(&mut collapsed);
+                folder
+                    .collapse(reader, writer)
+                    .map_err(|e| wrap!(e.into()))?;
 
-            folder
-                .collapse(reader, writer)
-                .map_err(|e| wrap!(e.into()))?;
+                let file_name = format!("{}.svg", self.name,);
 
-            let flamegraph_folder = exec_path
-                .strip_suffix(".json")
-                .ok_or_else(|| wrap!("Failed to strip suffix".into()))?;
-
-            let flamegraph_folder = flamegraph_folder.replace(
-                crate::BENCHMARKS_RUN_FOLDER,
-                crate::BENCHMARKS_FLAMEGRAPH_FOLDER,
-            );
-
-            let flamegraph_folder = std::path::Path::new(&flamegraph_folder);
-
-            if !flamegraph_folder.exists() {
                 // Create the flamegraph folder
-                std::fs::create_dir(flamegraph_folder).map_err(|e| wrap!(e.into()))?;
+                let output_file_path = flamegraph_folder.join(file_name);
+
+                let output_file =
+                    std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
+
+                let mut writer = BufWriter::new(output_file);
+                let reader = BufReader::new(&collapsed[..]);
+
+                from_reader(
+                    &mut inferno::flamegraph::Options::default(),
+                    reader,
+                    &mut writer,
+                )
+                .map_err(|e| wrap!(e.into()))?;
+            } else {
+                println!("Only data flag set, skipping flamegraph generation. Storing only data");
+                let file_name = format!("{}.perf", self.name);
+                // Create the flamegraph folder
+                let output_file_path = flamegraph_folder.join(file_name);
+                std::fs::write(output_file_path, perf_script_output.stdout)
+                    .map_err(|e| wrap!(e.into()))?;
             }
-
-            let file_name = format!("{}.svg", self.name,);
-
-            // Create the flamegraph folder
-            let output_file_path = flamegraph_folder.join(file_name);
-
-            let output_file =
-                std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
-
-            let mut writer = BufWriter::new(output_file);
-            let reader = BufReader::new(&collapsed[..]);
-
-            from_reader(
-                &mut inferno::flamegraph::Options::default(),
-                reader,
-                &mut writer,
-            )
-            .map_err(|e| wrap!(e.into()))?;
         }
-
         Ok(())
     }
 

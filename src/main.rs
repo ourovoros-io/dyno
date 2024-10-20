@@ -2,6 +2,8 @@
 #![allow(clippy::cast_precision_loss)]
 #![allow(clippy::similar_names)]
 #![allow(clippy::struct_field_names)]
+#![allow(clippy::struct_excessive_bools)]
+#![allow(clippy::too_many_lines)]
 
 mod cli;
 mod database;
@@ -10,7 +12,6 @@ mod hyperfine;
 pub mod stats;
 pub mod types;
 mod utils;
-
 
 use clap::Parser;
 pub use error::Result;
@@ -166,7 +167,12 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
         utils::store_item(&stats_result, &stats_path).map_err(|e| wrap!(e))?;
 
         if options.print_output {
-            print_stats(&stats_result, &previous_benchmarks.benchmarks, &current_benchmarks);
+            utils::print_stats(
+                &stats_result,
+                &previous_benchmarks.benchmarks,
+                &current_benchmarks,
+            )
+            .map_err(|e| wrap!(e))?;
         }
     }
 
@@ -229,126 +235,4 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     }
 
     Ok(())
-}
-
-
-use tabled::{Table, Tabled};
-
-#[derive(Tabled)]
-struct MetricRow {
-    metric: &'static str,
-    value_change: String,
-    percentage_change: String,
-}
-
-#[derive(Tabled)]
-struct AsmRow {
-    metric: &'static str,
-    previous: String,
-    current: String,
-}
-
-pub fn print_stats(
-    stats_result: &stats::Collection,
-    previous_benchmarks: &Vec<types::Benchmark>,
-    current_benchmarks: &Vec<types::Benchmark>,
-) {
-    println!("Printing performance regression or improvements");
-
-    // Create a vector to hold the metric rows
-    let mut metric_rows = Vec::new();
-
-    // Add a row for each metric
-    for (path, benchmark) in &stats_result.0 {
-        metric_rows.push(MetricRow {
-            metric: "Path",
-            value_change: path.clone(),
-            percentage_change: "".to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "CPU Usage",
-            value_change: benchmark.cpu_usage.0.to_string(),
-            percentage_change: benchmark.cpu_usage.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Memory Usage",
-            value_change: benchmark.memory_usage.0.to_string(),
-            percentage_change: benchmark.memory_usage.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Virtual Memory Usage",
-            value_change: benchmark.virtual_memory_usage.0.to_string(),
-            percentage_change: benchmark.virtual_memory_usage.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Disk Total Written Bytes",
-            value_change: benchmark.disk_total_written_bytes.0.to_string(),
-            percentage_change: benchmark.disk_total_written_bytes.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Disk Written Bytes",
-            value_change: benchmark.disk_written_bytes.0.to_string(),
-            percentage_change: benchmark.disk_written_bytes.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Disk Total Read Bytes",
-            value_change: benchmark.disk_total_read_bytes.0.to_string(),
-            percentage_change: benchmark.disk_total_read_bytes.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Disk Read Bytes",
-            value_change: benchmark.disk_read_bytes.0.to_string(),
-            percentage_change: benchmark.disk_read_bytes.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Bytecode Size",
-            value_change: benchmark.bytecode_size.0.to_string(),
-            percentage_change: benchmark.bytecode_size.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Data Section Size",
-            value_change: benchmark.data_section_size.0.to_string(),
-            percentage_change: benchmark.data_section_size.1.to_string(),
-        });
-        metric_rows.push(MetricRow {
-            metric: "Time",
-            value_change: benchmark.time.0.to_string(),
-            percentage_change: benchmark.time.1.to_string(),
-        });
-    }
-
-    // Create a vector to hold the ASM rows
-    let mut asm_rows = Vec::new();
-    asm_rows.push(AsmRow {
-        metric: "Asm Information",
-        previous: "Previous".to_string(),
-        current: "Current".to_string(),
-    });
-
-    let benchmarks = previous_benchmarks.iter().zip(current_benchmarks);
-    for (previous_benchmark, current_benchmark) in benchmarks {
-        asm_rows.push(AsmRow {
-            metric: "Bytecode Size",
-            previous: previous_benchmark.asm_information.as_ref().unwrap()["bytecode_size"].to_string(),
-            current: current_benchmark.asm_information.as_ref().unwrap()["bytecode_size"].to_string(),
-        });
-        asm_rows.push(AsmRow {
-            metric: "Data Section Size",
-            previous: previous_benchmark.asm_information.as_ref().unwrap()["data_section"]["size"].to_string(),
-            current: current_benchmark.asm_information.as_ref().unwrap()["data_section"]["size"].to_string(),
-        });
-        asm_rows.push(AsmRow {
-            metric: "Data Section Used",
-            previous: previous_benchmark.asm_information.as_ref().unwrap()["data_section"]["used"].to_string(),
-            current: current_benchmark.asm_information.as_ref().unwrap()["data_section"]["used"].to_string(),
-        });
-    }
-
-    // Create and print the metric table
-    let metric_table = Table::new(metric_rows);
-    println!("{}", metric_table);
-
-    // Create and print the ASM table
-    let asm_table = Table::new(asm_rows);
-    println!("{}", asm_table);
 }
