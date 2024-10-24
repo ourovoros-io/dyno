@@ -377,7 +377,7 @@ impl Benchmark {
                 }
                 out
             };
-            if !options.only_data {
+            if !options.data_only {
                 // Collapse the perf script output
                 let mut collapsed = Vec::new();
                 let mut folder = Folder::default();
