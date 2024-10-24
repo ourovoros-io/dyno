@@ -197,6 +197,22 @@ pub fn read_latest_file_in_directory(directory: &std::path::Path) -> Result<std:
     Err("No files found in the directory".into())
 }
 
+/// Get all the files in the directory with the given extension.
+///
+/// # Arguments
+///
+/// * `directory` - A reference to a `std::path::Path`.
+///
+/// * `extension` - A string slice containing the extension of the files to be retrieved.
+///
+/// # Returns
+///
+/// A `Result` containing a `Vec` of `std::path::PathBuf`.
+///
+/// # Errors
+///
+/// If the files cannot be read from the directory.
+///
 pub fn get_files_in_dir(
     directory: &std::path::Path,
     extension: &str,
@@ -215,6 +231,20 @@ pub fn get_files_in_dir(
 }
 
 #[inline]
+/// Compute the MD5 hash of the file at the given path.
+///
+/// # Arguments
+///
+/// * `path` - A reference to a `std::path::Path`.
+///
+/// # Returns
+///
+/// A `Result` containing a `String` with the MD5 hash.
+///
+/// # Errors
+///
+/// If the MD5 hash cannot be computed.
+///
 pub fn compute_md5(path: &std::path::Path) -> Result<String> {
     Ok(format!(
         "{:X}",
@@ -222,6 +252,20 @@ pub fn compute_md5(path: &std::path::Path) -> Result<String> {
     ))
 }
 
+/// Get the forc version.
+///
+/// # Arguments
+///
+/// * `path` - A reference to a `std::path::Path`.
+///
+/// # Returns
+///
+/// A `Result` containing a `String` with the forc version.
+///
+/// # Errors
+///
+/// If the forc version cannot be retrieved.
+///
 pub fn get_forc_version(path: &std::path::Path) -> Result<String> {
     let output = std::process::Command::new(path)
         .arg("--version")
@@ -233,6 +277,7 @@ pub fn get_forc_version(path: &std::path::Path) -> Result<String> {
     Ok(version)
 }
 
+/// Print the welcome message.
 pub fn print_welcome() {
     println!("{}", "=".repeat(100));
     println!(
@@ -242,7 +287,6 @@ pub fn print_welcome() {
     );
     println!("{}", "=".repeat(100));
 }
-
 
 use tabled::{Table, Tabled};
 
@@ -261,19 +305,19 @@ struct AsmRow {
 }
 
 /// Print the performance regression or improvements.
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `stats_result` - A reference to a `stats::Collection`.
-/// 
+///
 /// * `previous_benchmarks` - A reference to a vector of `types::Benchmark`.
-/// 
+///
 /// * `current_benchmarks` - A reference to a vector of `types::Benchmark`.
-/// 
+///
 /// # Errors
-/// 
+///
 /// If the function is unable to get the asm information.
-/// 
+///
 pub fn print_stats(
     stats_result: &crate::stats::Collection,
     previous_benchmarks: &[crate::types::Benchmark],
@@ -397,7 +441,6 @@ pub fn print_stats(
     println!("{asm_table}");
     Ok(())
 }
-
 
 #[cfg(test)]
 mod tests {

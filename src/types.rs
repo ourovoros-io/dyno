@@ -316,8 +316,15 @@ impl Benchmark {
             let file_name = format!("{}.sample", self.name);
             // Create the flamegraph folder
             let output_file_path = flamegraph_folder.join(file_name);
-            let contents = sample_output.ok_or_else(|| wrap!("Failed to get sample output".into()))?.join().map_err(|_| wrap!("Failed to join the process".into()))?;
-            std::fs::write(output_file_path, contents.ok_or_else(|| wrap!("Failed to get the contents".into()))?).map_err(|e| wrap!(e.into()))?;
+            let contents = sample_output
+                .ok_or_else(|| wrap!("Failed to get sample output".into()))?
+                .join()
+                .map_err(|_| wrap!("Failed to join the process".into()))?;
+            std::fs::write(
+                output_file_path,
+                contents.ok_or_else(|| wrap!("Failed to get the contents".into()))?,
+            )
+            .map_err(|e| wrap!(e.into()))?;
         } else if let Some(sample_output) = sample_output {
             if let Ok(Some(sample_output)) = sample_output.join() {
                 // Collapse the sample output
@@ -626,17 +633,20 @@ impl Benchmark {
             let virtual_memory_usage = process.virtual_memory();
             let disk_usage = process.disk_usage();
 
-            frames.lock().expect("Failed to get lock for frames").push(BenchmarkFrame {
-                timestamp: frame_start.duration_since(epoch),
-                relative_timestamp: frame_start.duration_since(phase_epoch),
-                cpu_usage,
-                memory_usage,
-                virtual_memory_usage,
-                disk_total_written_bytes: disk_usage.total_written_bytes,
-                disk_written_bytes: disk_usage.written_bytes,
-                disk_total_read_bytes: disk_usage.total_read_bytes,
-                disk_read_bytes: disk_usage.read_bytes,
-            });
+            frames
+                .lock()
+                .expect("Failed to get lock for frames")
+                .push(BenchmarkFrame {
+                    timestamp: frame_start.duration_since(epoch),
+                    relative_timestamp: frame_start.duration_since(phase_epoch),
+                    cpu_usage,
+                    memory_usage,
+                    virtual_memory_usage,
+                    disk_total_written_bytes: disk_usage.total_written_bytes,
+                    disk_written_bytes: disk_usage.written_bytes,
+                    disk_total_read_bytes: disk_usage.total_read_bytes,
+                    disk_read_bytes: disk_usage.read_bytes,
+                });
 
             let frame_elapsed = frame_start.elapsed();
 

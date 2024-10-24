@@ -1,8 +1,12 @@
 use crate::wrap;
 
+/// Execute the hyperfine command
 pub(crate) fn execute(
     execution_path: &std::path::Path,
     options: &crate::cli::Options,
+    date_time: &str,
+    forc_version: &str,
+    binary_hash: &str,
 ) -> crate::error::Result<()> {
     // Construct the hyperfine folder path
     let hyperfine_storage_path = options.output_folder.join("hyperfine");
@@ -58,15 +62,6 @@ pub(crate) fn execute(
 
     hyperfine_command.wait().map_err(|e| wrap!(e.into()))?;
 
-    // Get the datetime
-    let datetime = crate::utils::get_date_time();
-
-    // Get the forc version
-    let forc_version = crate::utils::get_forc_version(&options.forc_path).map_err(|e| wrap!(e))?;
-
-    // Get the binary hash
-    let binary_hash = crate::utils::compute_md5(&options.forc_path).map_err(|e| wrap!(e))?;
-
     let mut previous_hyperfine_path = std::path::PathBuf::new();
 
     // Get the items in the hyperfine folder
@@ -84,7 +79,7 @@ pub(crate) fn execute(
 
     // Construct the path for the current hyperfine output
     let current_hyperfine_path = format!(
-        "{}/hyperfine/{forc_version}_{binary_hash}_{datetime}_{filename}",
+        "{}/hyperfine/{forc_version}_{binary_hash}_{date_time}_{filename}",
         options.output_folder.display()
     );
 

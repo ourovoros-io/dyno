@@ -95,9 +95,15 @@ pub(crate) fn calculate(
     previous_benchmark: &Benchmark,
     current_benchmark: &Benchmark,
 ) -> crate::error::Result<Stats> {
-    let previous_frames: MutexGuard<_> = previous_benchmark.frames.lock().expect("Failed to get the previous benchmark frames lock");
+    let previous_frames: MutexGuard<_> = previous_benchmark
+        .frames
+        .lock()
+        .expect("Failed to get the previous benchmark frames lock");
 
-    let current_frames: MutexGuard<_> = current_benchmark.frames.lock().expect("Failed to get the current benchmark frames lock");
+    let current_frames: MutexGuard<_> = current_benchmark
+        .frames
+        .lock()
+        .expect("Failed to get the current benchmark frames lock");
 
     #[allow(clippy::type_complexity)]
     let metrics: Vec<(&str, fn(&BenchmarkFrame) -> f64)> = vec![
