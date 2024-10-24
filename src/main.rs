@@ -230,7 +230,14 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     if options.hyperfine {
         for b in &benchmarks.benchmarks {
             println!("Running hyperfine analysis on {}", b.path.display());
-            hyperfine::execute(&b.path, options, &benchmarks_datetime, &forc_version, &compiler_hash).map_err(|e| wrap!(e))?;
+            hyperfine::execute(
+                &b.path,
+                options,
+                &benchmarks_datetime,
+                &forc_version,
+                &compiler_hash,
+            )
+            .map_err(|e| wrap!(e))?;
         }
     }
 

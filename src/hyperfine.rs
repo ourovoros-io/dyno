@@ -6,7 +6,7 @@ pub(crate) fn execute(
     options: &crate::cli::Options,
     date_time: &str,
     forc_version: &str,
-    binary_hash: &str,
+    compiler_hash: &str,
 ) -> crate::error::Result<()> {
     // Construct the hyperfine folder path
     let hyperfine_storage_path = options.output_folder.join("hyperfine");
@@ -79,7 +79,7 @@ pub(crate) fn execute(
 
     // Construct the path for the current hyperfine output
     let current_hyperfine_path = format!(
-        "{}/hyperfine/{forc_version}_{binary_hash}_{date_time}_{filename}",
+        "{}/hyperfine/{forc_version}_{compiler_hash}_{date_time}_{filename}",
         options.output_folder.display()
     );
 
