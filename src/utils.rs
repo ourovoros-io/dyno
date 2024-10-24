@@ -405,7 +405,7 @@ mod tests {
     #[test]
     fn test_get_forc_version() {
         let forc_path = std::path::Path::new("forc");
-        let version = super::get_forc_version(forc_path).unwrap();
+        let version = super::get_forc_version(forc_path).expect("Failed to get forc version");
         assert_eq!("0.63.1", version);
     }
 }

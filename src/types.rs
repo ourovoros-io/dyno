@@ -316,8 +316,8 @@ impl Benchmark {
             let file_name = format!("{}.sample", self.name);
             // Create the flamegraph folder
             let output_file_path = flamegraph_folder.join(file_name);
-            let contents = sample_output.unwrap().join().unwrap().unwrap();
-            std::fs::write(output_file_path, contents).map_err(|e| wrap!(e.into()))?;
+            let contents = sample_output.ok_or_else(|| wrap!("Failed to get sample output".into()))?.join().map_err(|_| wrap!("Failed to join the process".into()))?;
+            std::fs::write(output_file_path, contents.ok_or_else(|| wrap!("Failed to get the contents".into()))?).map_err(|e| wrap!(e.into()))?;
         } else if let Some(sample_output) = sample_output {
             if let Ok(Some(sample_output)) = sample_output.join() {
                 // Collapse the sample output
@@ -478,7 +478,7 @@ impl Benchmark {
             let command_stdout = std::io::BufReader::new(command_stdout);
 
             for line in command_stdout.lines() {
-                let line = line.unwrap().trim_end().to_string();
+                let line = line.expect("Failed to get line").trim_end().to_string();
 
                 // Attempt to send the line to the main thread, or stop looping and allow
                 // the readline thread to exit if it fails
@@ -626,7 +626,7 @@ impl Benchmark {
             let virtual_memory_usage = process.virtual_memory();
             let disk_usage = process.disk_usage();
 
-            frames.lock().unwrap().push(BenchmarkFrame {
+            frames.lock().expect("Failed to get lock for frames").push(BenchmarkFrame {
                 timestamp: frame_start.duration_since(epoch),
                 relative_timestamp: frame_start.duration_since(phase_epoch),
                 cpu_usage,
