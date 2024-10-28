@@ -211,6 +211,7 @@ impl Benchmark {
         // NOTE: stdin and stdout are piped so that we can use them to signal individual phases
         let mut command = Command::new(forc_path)
             .arg("build")
+            .arg("--profile")
             .arg("--log-level")
             .arg("5")
             .stdin(Stdio::piped())

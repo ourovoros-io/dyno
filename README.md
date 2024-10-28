@@ -34,7 +34,7 @@ The tool can optionally use [perf](https://en.wikipedia.org/wiki/Perf_(Linux)) o
 >
 > - Rust Language
 > - Sway Language
-> - Sway Compiler build with `--features profiler`
+> - Sway Compiler
 > - Linux for `flamegraph` support using `perf` (Optional)
 > - Hyperfine (Optional)
 > - `Postgres` for database support (Optional)
@@ -58,12 +58,12 @@ sudo sysctl -p /etc/sysctl.conf
 - [Install Docker](https://docs.docker.com/engine/install/)(Optional)
 - [Install Postgres](https://hub.docker.com/_/postgres)(Optional)
 
-Git clone the sway repository and build it with the `--features profiler` flag.
+Git clone the sway repository and build.
 
 ```bash
 git clone https://github.com/FuelLabs/sway
 cd sway
-cargo build --release --features profiler
+cargo build --release
 ```
 
 Git clone the dyno repository.
@@ -73,15 +73,11 @@ git clone https://github.com/ourovoros-io/dyno.git
 cd dyno
 ```
 
-Run the tool by point to the `forc` binary build with the `--features profiler` flag and a target folder.
+Run the tool by point to the `forc` binary and a target folder.
 
 ```bash
 cargo r --release -- -t <target_folder> -f <forc_profile_binary>
 ```
-
-> [!TIP]
->
-> Installation script for database use at [test_data/test_with_docker_setup.sh](./test_data/test_with_docker_setup.sh).
 
 ## Usage
 
@@ -97,7 +93,7 @@ Options:
   -t, --target <TARGET>
           A path to a target folder or file to compile
   -f, --forc-path <FORC_PATH>
-          The path to the forc binary compiled with --features profiler
+          The path to the forc binary
   -o, --output-folder <OUTPUT_FOLDER>
           [default: ./benchmarks]
   -p, --print-output
