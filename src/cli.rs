@@ -4,7 +4,7 @@ use std::path::PathBuf;
 #[derive(Parser)]
 #[clap(name = "Forc Performance Tool")]
 #[clap(
-    author = "Georgios Delkos <georgios@tenbeo.io>, Camden Smallwood <camden-smallwood@gmail.com>"
+    author = "Georgios Delkos <georgios@ourovoros.io>, Camden Smallwood <camden-smallwood@gmail.com>"
 )]
 #[clap(version = "1.0")]
 #[clap(about = "Fuel Orchestrator Performance Profiling & Benchmarking", long_about = None)]
