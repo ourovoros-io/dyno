@@ -9,8 +9,8 @@ mod cli;
 mod database;
 mod error;
 mod hyperfine;
-pub mod stats;
-pub mod types;
+mod stats;
+mod types;
 mod utils;
 
 use clap::Parser;
@@ -123,7 +123,7 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     .map_err(|e| wrap!(e))?
     .len();
 
-    // If headless mode is enabled and we have previous benchmarks we need to store the latest one before we create new one
+    // Check if we have previous benchmarks
     if output_dir_file_count > 0 {
         let file_path = utils::read_latest_file_in_directory(
             &options.output_folder.join(BENCHMARKS_RUN_FOLDER),
@@ -242,4 +242,75 @@ pub async fn execute(options: &cli::Options) -> Result<()> {
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::path::PathBuf;
+
+    #[tokio::test]
+    async fn test_execute() -> crate::error::Result<()> {
+        // Removing all the benchmarks
+        std::fs::remove_dir_all("benchmarks").unwrap_or_default();
+
+        println!("Starting testing");
+        println!("Warm up the system");
+        println!("Executing regression testing");
+
+        // Warm up the system
+        std::thread::sleep(std::time::Duration::from_secs(5));
+
+        let options = cli::Options {
+            forc_path: PathBuf::from("../sway/target/release/forc"),
+            target: PathBuf::from("/Users/georgiosdelkos/Documents/GitHub/ourovoros.io/Fuel/sway/test/src/sdk-harness/test_projects/hashing"),
+            output_folder: PathBuf::from("benchmarks"),
+            flamegraph: true,
+            print_output: true,
+            database: false,
+            hyperfine: false,
+            max_iterations: 2,
+        };
+
+        let result = execute(&options).await.map_err(|e| wrap!(e))?;
+        assert_eq!(result, ());
+
+        // Warm up the system
+        std::thread::sleep(std::time::Duration::from_secs(5));
+
+        let options = cli::Options {
+            forc_path: PathBuf::from("../sway_slow/target/release/forc"),
+            target: PathBuf::from("/Users/georgiosdelkos/Documents/GitHub/ourovoros.io/Fuel/sway/test/src/sdk-harness/test_projects/hashing"),
+            output_folder: PathBuf::from("benchmarks"),
+            flamegraph: true,
+            print_output: true,
+            database: false,
+            hyperfine: false,
+            max_iterations: 2,
+        };
+
+        let result = execute(&options).await.map_err(|e| wrap!(e))?;
+        assert_eq!(result, ());
+
+        println!("Executing improvement testing");
+
+        // Warm up the system
+        std::thread::sleep(std::time::Duration::from_secs(5));
+
+        let options = cli::Options {
+            forc_path: PathBuf::from("../sway/target/release/forc"),
+            target: PathBuf::from("/Users/georgiosdelkos/Documents/GitHub/ourovoros.io/Fuel/sway/test/src/sdk-harness/test_projects/hashing"),
+            output_folder: PathBuf::from("benchmarks"),
+            flamegraph: true,
+            print_output: true,
+            database: false,
+            hyperfine: false,
+            max_iterations: 2,
+        };
+
+        let result = execute(&options).await.map_err(|e| wrap!(e))?;
+        assert_eq!(result, ());
+
+        Ok(())
+    }
 }

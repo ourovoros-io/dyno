@@ -28,10 +28,6 @@ pub struct Options {
     /// Flamegraph support (Optional)
     pub flamegraph: bool,
 
-    #[clap(long, requires = "flamegraph")]
-    /// Only data for flamegraph (Optional)
-    pub data_only: bool,
-
     #[clap(long)]
     /// Enable hyperfine analysis (Optional)
     pub hyperfine: bool,

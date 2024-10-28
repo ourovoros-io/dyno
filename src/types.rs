@@ -311,21 +311,7 @@ impl Benchmark {
         }
 
         #[cfg(target_os = "macos")]
-        if options.data_only {
-            println!("Only data flag set, skipping flamegraph generation. Storing only data");
-            let file_name = format!("{}.sample", self.name);
-            // Create the flamegraph folder
-            let output_file_path = flamegraph_folder.join(file_name);
-            let contents = sample_output
-                .ok_or_else(|| wrap!("Failed to get sample output".into()))?
-                .join()
-                .map_err(|_| wrap!("Failed to join the process".into()))?;
-            std::fs::write(
-                output_file_path,
-                contents.ok_or_else(|| wrap!("Failed to get the contents".into()))?,
-            )
-            .map_err(|e| wrap!(e.into()))?;
-        } else if let Some(sample_output) = sample_output {
+        if let Some(sample_output) = sample_output {
             if let Ok(Some(sample_output)) = sample_output.join() {
                 // Collapse the sample output
                 let mut collapsed = Vec::new();
@@ -377,43 +363,36 @@ impl Benchmark {
                 }
                 out
             };
-            if !options.data_only {
-                // Collapse the perf script output
-                let mut collapsed = Vec::new();
-                let mut folder = Folder::default();
-                let reader = BufReader::new(&perf_script_output.stdout[..]);
-                let writer = BufWriter::new(&mut collapsed);
 
-                folder
-                    .collapse(reader, writer)
-                    .map_err(|e| wrap!(e.into()))?;
+            // Collapse the perf script output
+            let mut collapsed = Vec::new();
+            let mut folder = Folder::default();
+            let reader = BufReader::new(&perf_script_output.stdout[..]);
+            let writer = BufWriter::new(&mut collapsed);
 
-                let file_name = format!("{}.svg", self.name,);
-
-                // Create the flamegraph folder
-                let output_file_path = flamegraph_folder.join(file_name);
-
-                let output_file =
-                    std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
-
-                let mut writer = BufWriter::new(output_file);
-                let reader = BufReader::new(&collapsed[..]);
-
-                from_reader(
-                    &mut inferno::flamegraph::Options::default(),
-                    reader,
-                    &mut writer,
-                )
+            folder
+                .collapse(reader, writer)
                 .map_err(|e| wrap!(e.into()))?;
-            } else {
-                println!("Only data flag set, skipping flamegraph generation. Storing only data");
-                let file_name = format!("{}.perf", self.name);
-                // Create the flamegraph folder
-                let output_file_path = flamegraph_folder.join(file_name);
-                std::fs::write(output_file_path, perf_script_output.stdout)
-                    .map_err(|e| wrap!(e.into()))?;
-            }
+
+            let file_name = format!("{}.svg", self.name,);
+
+            // Create the flamegraph folder
+            let output_file_path = flamegraph_folder.join(file_name);
+
+            let output_file =
+                std::fs::File::create(&output_file_path).map_err(|e| wrap!(e.into()))?;
+
+            let mut writer = BufWriter::new(output_file);
+            let reader = BufReader::new(&collapsed[..]);
+
+            from_reader(
+                &mut inferno::flamegraph::Options::default(),
+                reader,
+                &mut writer,
+            )
+            .map_err(|e| wrap!(e.into()))?;
         }
+
         Ok(())
     }
 
@@ -610,10 +589,6 @@ impl Benchmark {
             if stop_readline_rx.try_recv().is_ok() {
                 break;
             }
-
-            // Remove this when this issue [#1315](https://github.com/GuillaumeGomez/sysinfo/issues/1351) has been resolved
-            #[cfg(target_os = "linux")]
-            system.refresh_all();
 
             if system.refresh_processes_specifics(
                 sysinfo::ProcessesToUpdate::Some(&[pid]),
